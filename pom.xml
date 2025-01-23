@@ -11,6 +11,7 @@
     </properties>
 
     <dependencies>
+
         <!-- https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api -->
 <dependency>
     <groupId>javax.servlet</groupId>
@@ -18,7 +19,6 @@
     <version>4.0.1</version>
     <scope>provided</scope>
 </dependency>
-
 
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
@@ -34,7 +34,11 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
-        
+        <dependency>
+    		<groupId>org.hsqldb</groupId>
+    		<artifactId>hsqldb</artifactId>
+    		<version>2.7.4</version>
+		</dependency>
     </dependencies>
 
     <build>
