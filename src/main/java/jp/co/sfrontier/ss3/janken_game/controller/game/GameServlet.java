@@ -14,6 +14,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
+import jp.co.sfrontier.ss3.janken_game.controller.common.ServletUtils;
+
 /**
  * じゃんけんゲームをするためのコントローラークラス
  */
@@ -38,6 +40,8 @@ public class GameServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         logger.debug("Game Play");
+        
+        ServletUtils.getUserInfo(request);
         
         String playerHand = request.getParameter("hand");
         String userId = request.getParameter("userId");  // ユーザーIDを取得
