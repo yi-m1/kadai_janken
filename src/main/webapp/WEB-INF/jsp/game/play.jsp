@@ -37,14 +37,14 @@
                 const response = JSON.parse(xhr.responseText);
                 const cpuHand = response.cpuHand;
                 const result = response.result;
-                const cpuHandImg = document.getElementById('cpu-hand');
+                const cpuHandImg = document.getElementById('cpu-hand-img');
                 const resultText = document.getElementById('result');
                 const winStreakText = document.getElementById('win-streak');
 
                 // CPUの手を画像で表示
                 cpuHandImg.src = 'JankenGame/images/' + cpuHand + '.png';
-<!--                document.getElementById('cpu-hand').style.display = 'block';-->
-                cpuHandImg.style.display = 'block';
+                document.getElementById('cpu-hand').style.display = 'block';
+<!--                cpuHandImg.style.display = 'block';-->
 
                 // 勝敗を表示
                 resultText.innerText = result.message;
@@ -98,7 +98,7 @@
     
     <!-- CPUの手を表示 -->
     <div id="cpu-hand" style="display: none;">
-        <img src="" alt="CPUの手">
+        <img id="cpu-hand-img" src="" alt="CPUの手">
     </div>
 
     <!-- 結果表示 -->
