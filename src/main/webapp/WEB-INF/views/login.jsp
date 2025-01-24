@@ -11,10 +11,12 @@
     <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
 	<% } %>
 	
-    <form action="login" method="post">
+    <form action="<%= request.getContextPath() %>/login" method="post">
         メールアドレス: <input type="text" name="mailAdress" required><br>
         ユーザID: <input type="text" name="userId" required><br>
-        <input type="submit" value="ログイン">
+        <div>
+        	<button type="submit">ログイン</button>
+        </div>
     </form>
 </body>
 </html>

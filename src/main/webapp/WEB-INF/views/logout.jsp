@@ -7,8 +7,10 @@
 <title>ログイン/ログアウトテスト画面</title>
 </head>
 <body>
-	<form action="logout" method="post">
-        <input type="submit" value="ログアウト">
+	<form action="<%= request.getContextPath() %>/logout" method="post">
+        <div>
+        	<button type="submit">ログアウト</button>
+        </div>
     </form>
 </body>
 </html>

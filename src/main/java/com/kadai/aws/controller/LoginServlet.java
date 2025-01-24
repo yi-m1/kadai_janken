@@ -19,7 +19,8 @@ public class LoginServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// ログイン画面のフォームを表示
+		
+		// ログイン画面のフォームを表示する
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -41,8 +42,12 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("userInfo", userInfo);
 
-			//loginTest.jspに遷移
-			response.sendRedirect("/WEB-INF/views/logout.jsp");
+			//logout.jspに遷移
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/logout.jsp");
+		    dispatcher.forward(request, response);
+//			response.sendRedirect(request.getContextPath() + "/WEB-INF/views/logout.jsp");
+
+		    
 		} else {
 			//認証に失敗した場合は再度ログイン画面を出す
 			request.setAttribute("errorMessage", "メールアドレスまたはユーザIDが間違っています");
