@@ -2,7 +2,6 @@ package com.kadai.aws.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,19 +15,19 @@ public class LogoutServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		// ログアウト画面のフォームを表示する
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/logout.jsp");
-		dispatcher.forward(request, response);
+		doTask(request, response);
 	}
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // セッションを破棄する
+        doTask(request, response);
+    }
+    
+    private void doTask (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	// セッションを破棄する
         HttpSession session = request.getSession();
         session.invalidate();
 
         // ログイン画面に遷移する
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
-	    dispatcher.forward(request, response);
-    }
+	    response.sendRedirect(request.getContextPath() + "/Login");
+	}
 }

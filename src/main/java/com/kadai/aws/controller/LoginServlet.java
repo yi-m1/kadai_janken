@@ -34,8 +34,8 @@ public class LoginServlet extends HttpServlet {
 		String userId = request.getParameter("userId");
 
 		// ログイン処理を行う
-		LoginService login = new LoginService();
-		UserInfo userInfo = login.auth(mailAdress, userId);
+		LoginService loginService = new LoginService();
+		UserInfo userInfo = loginService.auth(mailAdress, userId);
 
 		// ログイン成功時、セッションにユーザー情報を保存
 		if (userInfo != null) {
@@ -43,9 +43,7 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("userInfo", userInfo);
 
 			//logout.jspに遷移
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/logout.jsp");
-		    dispatcher.forward(request, response);
-//			response.sendRedirect(request.getContextPath() + "/WEB-INF/views/logout.jsp");
+			response.sendRedirect(request.getContextPath() + "/game/Play");
 
 		    
 		} else {
