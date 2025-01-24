@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.kadai.aws</groupId>
-    <artifactId>janken</artifactId>
+    <groupId>ss3.sfrontier.co.jp</groupId>
+    <artifactId>janken_game</artifactId>
     <version>0.0.1</version>
     <packaging>war</packaging>
   
@@ -14,14 +14,20 @@
         <!-- https://mvnrepository.com/artifact/javax.servlet/servlet-api -->
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>4.0.1</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
+            <version>2.24.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
             <version>2.24.1</version>
         </dependency>
 
@@ -32,9 +38,19 @@
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+        
+            <!-- JSONライブラリ -->
+    <dependency>
+        <groupId>org.json</groupId>
+        <artifactId>json</artifactId>
+        <version>20210307</version> <!-- バージョンは最新のものを選んでください -->
+    </dependency>
     </dependencies>
+    
+    
 
     <build>
+           <finalName>JankenGame</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
