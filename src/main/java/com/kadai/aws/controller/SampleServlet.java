@@ -18,7 +18,7 @@ public class SampleServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("message", "こんにちは！");
-		req.getRequestDispatcher("/WEB-INF/views/hello.jsp").forward(req, resp);
+		req.getRequestDispatcher("/WEB-INF/views/playGame.jsp").forward(req, resp);
 	}
 
 }
