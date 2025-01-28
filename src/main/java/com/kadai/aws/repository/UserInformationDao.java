@@ -14,4 +14,7 @@ public interface UserInformationDao {
 	
 	//新規ユーザを追加するインターフェース
 	void addUser(String mailAdress, String userId) throws SQLException;
+	
+	//ユーザIDの重複をチェックするインターフェース
+	boolean isUserIdExists(String userId) throws SQLException;
 }

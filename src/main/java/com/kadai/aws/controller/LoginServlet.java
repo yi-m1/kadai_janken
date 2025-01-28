@@ -1,6 +1,8 @@
 package com.kadai.aws.controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,14 +12,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.kadai.aws.model.UserInfo;
+import com.kadai.aws.repository.DbUtil;
+import com.kadai.aws.repository.UserInformationDao;
+import com.kadai.aws.repository.UserInformationDaoImpl;
 import com.kadai.aws.service.login.LoginService;
 import com.kadai.aws.service.login.ValidatorService;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
+	private static final Logger logger = LogManager.getLogger(LoginServlet.class);
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
@@ -39,6 +48,23 @@ public class LoginServlet extends HttpServlet {
 		String mailAdressError = validator.validateMailAdress(mailAdress);
 		String userIdError = validator.validateUserId(userId);
 		
+		//ユーザIDに重複があればエラーメッセージを出す
+		if(userIdError == null) {
+			Connection conn = null;
+			try {
+				//コネクションの取得
+				conn = DbUtil.getConnection(DbUtil.AutoCommitMode.OFF);
+				UserInformationDao dao = new UserInformationDaoImpl(conn);
+				if (dao.isUserIdExists(userId)) {
+					userIdError = "このユーザIDはすでに登録されています。";
+				}
+			}catch (SQLException e) {
+				logger.error("ユーザIDの重複チェックでエラーが発生しました。", e);
+			}finally {
+				DbUtil.close(conn);
+			}
+		}
+		
 		boolean hasError = false;
 		if (mailAdressError != null) {
 			request.setAttribute("mailAdressError", mailAdressError);
@@ -49,13 +75,13 @@ public class LoginServlet extends HttpServlet {
 			hasError = true;
 		}
 		
-		//バリデーションエラーがあればログイン画面に遷移する
+		//バリデーションエラー・ユーザID重複エラーがあればログイン画面に遷移する
 		if(hasError) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
 			dispatcher.forward(request, response);
 			return;
 		}
-		//バリデーションエラーがなければ ログイン処理を行う
+		//エラーがなければ ログイン処理を行う
 		else {
 			LoginService loginService = new LoginService();
 			UserInfo userInfo = loginService.auth(mailAdress, userId);
@@ -76,6 +102,5 @@ public class LoginServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			}
 		}
-		
 	}
 }

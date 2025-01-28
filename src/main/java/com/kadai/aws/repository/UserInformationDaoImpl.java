@@ -28,7 +28,7 @@ public class UserInformationDaoImpl implements UserInformationDao {
 		return connection;
 	}
 
-	/*
+	/**
 	 * DBからユーザ情報を取得するメソッド
 	 */
 	@Override
@@ -59,7 +59,7 @@ public class UserInformationDaoImpl implements UserInformationDao {
 		return userInfo;
 	}
 
-	/*
+	/**
 	 * 新規ユーザ情報をDBに登録するメソッド
 	 */
 	@Override
@@ -70,5 +70,36 @@ public class UserInformationDaoImpl implements UserInformationDao {
 			pstmt.setString(2, userId);
 			pstmt.executeUpdate();
 		}
+	}
+
+	/**
+	 * ユーザIDの重複をチェックするメソッド
+	 * @param userId
+	 * @return isExist
+	 * @throws SQLException
+	 */
+	@Override
+	public boolean isUserIdExists(String userId) throws SQLException {
+		boolean isExist = false;
+
+		//コネクションの取得
+		Connection conn = getConnection();
+
+		//ステートメントの作成
+		String sql = "SELECT COUNT(*) FROM user_information_tbl WHERE user_id = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, userId);
+
+		//ステートメントの実行
+		ResultSet rset = pstmt.executeQuery();
+
+		//DBに同じユーザIDが存在したらtrue、存在しなければfalseを返す
+		if (rset.next()) {
+			int count = rset.getInt(1);
+			if (count > 0) {
+				isExist = true;
+			}
+		}
+		return isExist;
 	}
 }
