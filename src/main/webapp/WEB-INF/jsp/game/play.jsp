@@ -42,7 +42,7 @@
                 const winStreakText = document.getElementById('win-streak');
 
                 // CPUの手を画像で表示
-                cpuHandImg.src = 'JankenGame/images/' + cpuHand + '.png';
+                cpuHandImg.src = '/JankenGame/images/' + cpuHand + '.png';
                 document.getElementById('cpu-hand').style.display = 'block';
 <!--                cpuHandImg.style.display = 'block';-->
 
@@ -59,8 +59,8 @@
                 document.getElementById('retry-button').style.display = 'inline-block';
             };
 
-            // プレイヤーの手とユーザーIDをリクエストに含めて送信
-            xhr.send(`hand=${hand}&userId=${userId}`);
+            // プレイヤーの手をリクエストに含めて送信
+            xhr.send(`hand=${hand}`);
         }
 
         function retryGame() {
@@ -98,7 +98,7 @@
     
     <!-- CPUの手を表示 -->
     <div id="cpu-hand" style="display: none;">
-        <img id="cpu-hand-img" src="" alt="CPUの手">
+        <img id="cpu-hand-img" src="" alt="CPUの手" width="40%" height="50%">
     </div>
 
     <!-- 結果表示 -->

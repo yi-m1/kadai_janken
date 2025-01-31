@@ -56,13 +56,12 @@ public class GameServlet extends HttpServlet {
             .put("message", resultMessage)
             .put("winner", winner));
 
-        response.setContentType("application/json");
-        response.getWriter().write(jsonResponse.toString());
+        response.setContentType("application/json;charset=UTF-8");
         
 //        // JSP にディスパッチ
 //        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/game/play.jsp");
 //        dispatcher.forward(request, response);
-        response.getOutputStream().print("{\"result\":\"-1\",\"cpuHand\":\"rock\"}");
+        response.getOutputStream().print(jsonResponse.toString());
         response.getOutputStream().flush();
     }
 
@@ -75,17 +74,19 @@ public class GameServlet extends HttpServlet {
 
     private String getResultMessage(String playerHand, String cpuHand) {
         if (playerHand.equals(cpuHand)) {
-            return "引き分けです";
+            return "DROW";
         } else if (
             (playerHand.equals("rock") && cpuHand.equals("scissors")) ||
             (playerHand.equals("scissors") && cpuHand.equals("paper")) ||
             (playerHand.equals("paper") && cpuHand.equals("rock"))
         ) {
-            return "あなたの勝ちです";
+            return "User Win!!";
         } else {
-            return "CPUの勝ちです";
+            return "CPU Win!!";
         }
     }
+    
+    
 
     private String getWinner(String playerHand, String cpuHand) {
         if (playerHand.equals(cpuHand)) {
