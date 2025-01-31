@@ -2,11 +2,11 @@ package com.kadai.aws.model;
 
 import java.io.Serializable;
 /**
- *ログイン後のユーザ情報をここに格納する
+ *ユーザ情報を格納するエンティティクラス
  */
 public class UserInfo implements Serializable {
 	private String mailAddress;
-    private String userId;
+    private String userName;
     
     public String getMailAddress() {
         return mailAddress;
@@ -16,11 +16,11 @@ public class UserInfo implements Serializable {
         this.mailAddress = mailAddress;
     }
     
-    public String getUserId() {
-        return userId;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }
