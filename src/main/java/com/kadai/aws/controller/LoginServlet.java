@@ -64,10 +64,10 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("userInfo", userInfo);
 
 				//じゃんけん画面に遷移する
-//				response.sendRedirect(request.getContextPath() + "/game/Play");
+				response.sendRedirect(request.getContextPath() + "/game/Play");
 				//下記はテストページ表示用
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/logout.jsp");
-				dispatcher.forward(request, response);
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/logout.jsp");
+//				dispatcher.forward(request, response);
 
 			}
 			//認証に失敗した場合は再度ログイン画面を出す
