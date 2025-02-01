@@ -5,10 +5,19 @@ import java.io.Serializable;
  *ユーザ情報を格納するエンティティクラス
  */
 public class UserInfo implements Serializable {
+	private int userId;
 	private String mailAddress;
     private String userName;
     
-    public String getMailAddress() {
+    public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public String getMailAddress() {
         return mailAddress;
     }
 
