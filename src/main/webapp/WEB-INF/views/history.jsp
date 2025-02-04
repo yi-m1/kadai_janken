@@ -27,7 +27,7 @@
             <% for(ResultHistory rhi : resultHistory){ %>
             <tr>
                 <td><%= rhi.getExecuteDatetime() %></td>
-                <td><%= rhi.getUserId() %></td>
+                <td><%= rhi.getUserName() %></td>
                 <td><%= rhi.getOpponent() %></td>
                 <td><%= rhi.getResult() %></td>
             </tr>

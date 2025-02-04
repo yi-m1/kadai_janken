@@ -4,20 +4,20 @@ import java.util.Date;
 
 public class ResultHistory {
 
-	private int userId;
+	private String userName;
 	private Date executeDatetime;
-	private int opponent;
+	private String opponent;
 	private String result;
 
-	public int getUserId() {
-		return userId;
+	public String getUserName() {
+		return userName;
 	}
 
 	public Date getExecuteDatetime() {
 		return executeDatetime;
 	}
 
-	public int getOpponent() {
+	public String getOpponent() {
 		return opponent;
 	}
 
@@ -25,15 +25,15 @@ public class ResultHistory {
 		return result;
 	}
 
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	public void setExecuteDatetime(Date executeDatetime) {
 		this.executeDatetime = executeDatetime;
 	}
 
-	public void setOpponent(int opponent) {
+	public void setOpponent(String opponent) {
 		this.opponent = opponent;
 	}
 

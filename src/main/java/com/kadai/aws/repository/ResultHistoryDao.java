@@ -48,15 +48,15 @@ public class ResultHistoryDao {
 		// ステートメント作成
 		if (Optional.ofNullable(Integer.valueOf(userId)).isPresent()) {
 			if (userId == 2) {
-				sql = "SELECT user_id, execute_datetime, opponent, result FROM result_history_tbl";
+				sql = "SELECT ui1.user_name AS user_name, rh.execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id";
 				pstmt = conn.prepareStatement(sql);
 			} else {
-				sql = "SELECT user_id, execute_datetime, opponent, result FROM result_history_tbl WHERE user_id = ?";
+				sql = "SELECT ui1.user_name AS user_name, rh.execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id WHERE user_id = ?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, userId);
 			}
 		} else {
-			sql = "SELECT user_id, execute_datetime, opponent, result FROM result_history_tbl";
+			sql = "SELECT ui1.user_name AS user_name, rh.execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id";
 			pstmt = conn.prepareStatement(sql);
 		}
 
@@ -66,9 +66,9 @@ public class ResultHistoryDao {
 		while (rset.next()) {
 			// オブジェクトにデータを一時格納
 			ResultHistory resuhisInfo = new ResultHistory();
-			resuhisInfo.setUserId(rset.getInt("user_id"));
+			resuhisInfo.setUserName(rset.getString("user_name"));
 			resuhisInfo.setExecuteDatetime(rset.getDate("execute_datetime"));
-			resuhisInfo.setOpponent(rset.getInt("opponent"));
+			resuhisInfo.setOpponent(rset.getString("opponent_name"));
 			resuhisInfo.setResult(rset.getString("result"));
 			// 一時格納したデータをリストに追加
 			resuhisList.add(resuhisInfo);
