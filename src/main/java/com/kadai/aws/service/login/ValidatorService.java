@@ -36,10 +36,8 @@ public class ValidatorService {
 		}
 		String userNameRegex = "^[A-Za-z0-9_-]{1,100}$";
 		if (!userName.matches(userNameRegex)) {
-			return "ユーザ名は半角英数字、アンダースコア（_）、ハイフン（-）のみを使用し、最大100文字以内で入力してください。";
+			return "ユーザ名は半角英数字、アンダースコア(_)、ハイフン(-)のみを使用し、\n最大100文字以内で入力してください。";
 		}
 		return null;
 	}
-	
-	
 }
