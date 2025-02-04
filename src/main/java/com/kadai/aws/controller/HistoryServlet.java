@@ -21,7 +21,7 @@ import com.kadai.aws.repository.ResultHistoryDao;
 /**
  * 履歴画面のサーブレット
  */
-@WebServlet("/HistoryServlet")
+@WebServlet("/history")
 public class HistoryServlet extends HttpServlet {
 
 	/**
