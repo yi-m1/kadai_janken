@@ -12,18 +12,18 @@ public class Player implements Serializable {
     private static final long serialVersionUID = 1L;
     
     /** ユーザーID */
-    private Long userId;
+    private int userId;
     
     /** じゃんけんの手 */
     private Hand hand;
 
-    public Player(Long userId, Hand hand) {
+    public Player(int i, Hand hand) {
         super();
-        this.userId = userId;
+        this.userId = i;
         this.hand = hand;
     }
 
-    public Long getUserId() {
+    public int getUserId() {
         return userId;
     }
 

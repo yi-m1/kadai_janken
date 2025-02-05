@@ -12,11 +12,11 @@ public class ResultHistoryTbl implements Serializable {
     
     private Long historyId;
     
-    private Long userId;
+    private int userId;
     
     private Date executeDatetime;
     
-    private Long opponent;
+    private int opponent;
     
     private String result;
     
@@ -45,15 +45,15 @@ public class ResultHistoryTbl implements Serializable {
     /**
      * @return userId
      */
-    public Long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
     /**
-     * @param userId セットする userId
+     * @param i セットする userId
      */
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(int i) {
+        this.userId = i;
     }
 
     /**
@@ -73,15 +73,15 @@ public class ResultHistoryTbl implements Serializable {
     /**
      * @return opponent
      */
-    public Long getOpponent() {
+    public int getOpponent() {
         return opponent;
     }
 
     /**
-     * @param opponent セットする opponent
+     * @param i セットする opponent
      */
-    public void setOpponent(Long opponent) {
-        this.opponent = opponent;
+    public void setOpponent(int i) {
+        this.opponent = i;
     }
 
     /**

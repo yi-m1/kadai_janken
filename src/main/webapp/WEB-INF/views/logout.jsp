@@ -12,12 +12,9 @@
 	<%
 	UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
 	%>
-	<p>
-		ユーザー名:
-		<%=userInfo.getUserName()%></p>
-	<p>
-		メールアドレス:
-		<%=userInfo.getMailAddress()%></p>
+	<p>ユーザID:<%=userInfo.getUserId()%></p>
+	<p>ユーザ名:<%=userInfo.getUserName()%></p>
+	<p>メールアドレス:<%=userInfo.getMailAddress()%></p>
 	<form action="<%=request.getContextPath()%>/logout" method="post">
 		<div>
 			<button type="submit">ログアウト</button>

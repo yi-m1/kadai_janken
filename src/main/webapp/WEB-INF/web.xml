@@ -5,6 +5,16 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
     version="3.1" metadata-complete="true">
 
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.kadai.aws.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>/game/Play</url-pattern>
+        <url-pattern>/history</url-pattern>
+    </filter-mapping>
+
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
         <servlet-class>com.kadai.aws.controller.LoginServlet</servlet-class>
@@ -21,7 +31,6 @@
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
     </servlet-mapping>
-    
     <servlet>
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>com.kadai.aws.controller.LogoutServlet</servlet-class>
@@ -29,6 +38,14 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>GameServlet</servlet-name>
+        <servlet-class>com.kadai.aws.controller.GameServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GameServlet</servlet-name>
+        <url-pattern>/game/Play</url-pattern>
     </servlet-mapping>
 
 </web-app>

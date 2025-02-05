@@ -37,7 +37,7 @@ public class UserInformationDaoImpl implements UserInformationDao {
 		Connection conn = getConnection();
 
 		//ステートメントの作成
-		String sql = "SELECT mail_address, user_name FROM user_information_tbl WHERE mail_address = ?";
+		String sql = "SELECT user_id, mail_address, user_name FROM user_information_tbl WHERE mail_address = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
 		pstmt.setString(1, mailAddress);
 
@@ -48,6 +48,7 @@ public class UserInformationDaoImpl implements UserInformationDao {
 		UserInfo userInfo = null;
 		if (rset.next()) {
 			userInfo = new UserInfo();
+			userInfo.setUserId(rset.getInt("user_id"));
 			userInfo.setMailAddress(rset.getString("mail_address"));
 			userInfo.setUserName(rset.getString("user_name"));
 		}

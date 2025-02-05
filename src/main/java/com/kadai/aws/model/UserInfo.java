@@ -5,21 +5,15 @@ import java.io.Serializable;
  *ユーザ情報を格納するエンティティクラス
  */
 public class UserInfo implements Serializable {
-    private Long userId;
+    private int userId;
     private String mailAddress;
     private String userName;
     
-    /**
-     * @return userId
-     */
-    public Long getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    /**
-     * @param userId セットする userId
-     */
-    public void setUserId(Long userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 

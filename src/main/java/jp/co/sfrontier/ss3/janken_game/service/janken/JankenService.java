@@ -21,7 +21,7 @@ public class JankenService {
 
     private static final Logger logger = LogManager.getLogger(JankenService.class);
 
-    public static final Long CPU_ID = Long.valueOf(1L);
+    public static final int CPU_ID = 1;
 
     public int fight(Player player) throws SQLException {
         Player cpu = new Player(CPU_ID, createHand());
@@ -63,14 +63,14 @@ public class JankenService {
         return result;
     }
 
-    private ResultHistoryTbl createRecord(Player player, Long opponent, int result, Date targetDate) {
+    private ResultHistoryTbl createRecord(Player player, int i, int result, Date targetDate) {
 
         ResultHistoryTbl entity = new ResultHistoryTbl();
         entity.setUserId(player.getUserId());
         entity.setExecuteDatetime(targetDate);
         entity.setCreateDatetime(targetDate);
         entity.setUpdateDatetime(targetDate);
-        entity.setOpponent(opponent);
+        entity.setOpponent(i);
         entity.setResult(getResultText(result));
         entity.setUserChoice(player.getHand().name());
         entity.setVersion(Integer.valueOf(1));
