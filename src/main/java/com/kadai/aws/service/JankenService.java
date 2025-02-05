@@ -18,7 +18,8 @@ public class JankenService {
     public GameResult playJanken(JankenChoice userChoice) {
         String computerChoice = getComputerChoice();
         String resultMessage = getResult(userChoice.toString(), computerChoice);
-        return new GameResult(userChoice.toString(), computerChoice, resultMessage);
+        int userId = 1;  // 仮に 0 として設定（適切な方法で取得する）
+        return new GameResult(userId, userChoice.toString(), computerChoice, resultMessage);
     }
 
     // 結果を判定
