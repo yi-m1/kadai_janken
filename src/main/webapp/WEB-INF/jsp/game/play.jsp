@@ -111,5 +111,8 @@
     <div class="button-container">
         <button id="retry-button" style="display: none;" onclick="retryGame()">もう一回</button>
     </div>
+     <!-- 履歴表示ボタン -->
+    <button onclick="location.href='http://localhost:8080/janken/history'">履歴表示</button>
+    
 </body>
 </html>
