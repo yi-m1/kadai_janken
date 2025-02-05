@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.co.sfrontier.ss3.janken_game.dao;
+package com.kadai.aws.repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.Timestamp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import jp.co.sfrontier.ss3.janken_game.entity.ResultHistoryTbl;
+import entity.ResultHistoryTbl;
 
 /**
  * 

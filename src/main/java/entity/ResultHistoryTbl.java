@@ -1,4 +1,4 @@
-package jp.co.sfrontier.ss3.janken_game.entity;
+package entity;
 
 import java.io.Serializable;
 import java.util.Date;

@@ -1,8 +1,8 @@
-package jp.co.sfrontier.ss3.janken_game.service.janken.value;
+package value;
 
 import java.io.Serializable;
 
-import jp.co.sfrontier.ss3.janken_game.common.Hand;
+import common.Hand;
 
 /**
  * プレイヤーの情報を格納するクラス

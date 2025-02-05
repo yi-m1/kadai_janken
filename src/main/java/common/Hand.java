@@ -1,4 +1,4 @@
-package jp.co.sfrontier.ss3.janken_game.common;
+package common;
 
 /**
  * じゃんけんの手を定義する

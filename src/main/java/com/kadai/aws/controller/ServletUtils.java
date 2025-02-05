@@ -1,4 +1,4 @@
-package jp.co.sfrontier.ss3.janken_game.controller.common;
+package com.kadai.aws.controller;
 
 import javax.servlet.http.HttpServletRequest;
 

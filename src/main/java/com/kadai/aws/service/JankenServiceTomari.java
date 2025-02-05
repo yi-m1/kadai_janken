@@ -1,25 +1,26 @@
-package jp.co.sfrontier.ss3.janken_game.service.janken;
+package com.kadai.aws.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.Random;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.kadai.aws.repository.DbUtil;
+import com.kadai.aws.repository.ResultHistoryTblDao;
 
-import jp.co.sfrontier.ss3.janken_game.common.Hand;
-import jp.co.sfrontier.ss3.janken_game.dao.ResultHistoryTblDao;
-import jp.co.sfrontier.ss3.janken_game.entity.ResultHistoryTbl;
-import jp.co.sfrontier.ss3.janken_game.service.janken.value.Player;
+import common.Hand;
+import entity.ResultHistoryTbl;
+import value.Player;
 
 /**
  * じゃんけんゲームを提供するためのサービスクラス
  */
-public class JankenService {
+public class JankenServiceTomari {
 
-    private static final Logger logger = LogManager.getLogger(JankenService.class);
+    private static final Logger logger = LogManager.getLogger(JankenServiceTomari.class);
 
     public static final int CPU_ID = 1;
 
@@ -30,6 +31,7 @@ public class JankenService {
     }
 
     /**
+     * じゃんけんの対戦を行い、その結果をデータベースに保存するメソッド
      * @throws SQLException 
      * 
      */
@@ -62,7 +64,9 @@ public class JankenService {
 
         return result;
     }
-
+    /**
+     * プレイヤーの対戦履歴を保存するためのレコードを作成
+     */
     private ResultHistoryTbl createRecord(Player player, int i, int result, Date targetDate) {
 
         ResultHistoryTbl entity = new ResultHistoryTbl();
@@ -79,7 +83,23 @@ public class JankenService {
     }
 
     private Hand createHand() {
-        return Hand.ROCK;
+        // ランダムな整数を生成するために Random クラスを使う
+        Random random = new Random();
+
+        // 0, 1, 2 のいずれかをランダムに選ぶ
+        int randomNumber = random.nextInt(3); // 0 から 2 の範囲でランダムな数を生成
+
+        // ランダムな数に基づいて Hand を返す
+        switch (randomNumber) {
+            case 0:
+                return Hand.ROCK;
+            case 1:
+                return Hand.SCISSORS;
+            case 2:
+                return Hand.PAPER;
+            default:
+                throw new IllegalStateException("Unexpected value: " + randomNumber);
+        }
     }
 
     private String getResultText(int result) {
@@ -91,5 +111,4 @@ public class JankenService {
             return "LOSE";
         }
     }
-
 }

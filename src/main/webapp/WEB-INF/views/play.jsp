@@ -74,8 +74,88 @@
             buttons.forEach(button => button.classList.remove('selected'));
         }
     </script>
+        <style>
+        /* 全体のレイアウトを中央に配置 */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+
+        /* ゲームコンテンツを中央に配置 */
+        .game-container {
+            text-align: center;
+            padding: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ラジオボタンのスタイル */
+        .button-container {
+            margin: 10px;
+        }
+
+        /* ボタンのスタイル */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* CPUの手画像のスタイル */
+        #cpu-hand-img {
+            width: 40%;
+            height: 50%;
+            margin-top: 20px;
+        }
+
+        /* 結果表示のスタイル */
+        #result {
+            font-size: 20px;
+            margin-top: 20px;
+        }
+
+        /* 連勝数のスタイル */
+        #win-streak {
+            margin-top: 10px;
+            font-size: 18px;
+        }
+
+        /* 履歴表示ボタン */
+        .history-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid #4CAF50;
+            background-color: white;
+            color: #4CAF50;
+            border-radius: 5px;
+        }
+
+        .history-button:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 <body>
+<div class="game-container">
     <h1>じゃんけんゲーム</h1>
     
     <!-- ラジオボタンで手を選ぶ -->
@@ -98,11 +178,11 @@
     
     <!-- CPUの手を表示 -->
     <div id="cpu-hand" style="display: none;">
-        <img id="cpu-hand-img" src="" alt="CPUの手" width="40%" height="50%">
+        <img id="cpu-hand-img" src="" alt="CPUの手">
     </div>
 
     <!-- 結果表示 -->
-    <div id="result" style="font-size: 20px; margin-top: 20px;"></div>
+    <div id="result"></div>
 
     <!-- 勝敗連勝数表示 -->
     <div id="win-streak"></div>
@@ -112,7 +192,9 @@
         <button id="retry-button" style="display: none;" onclick="retryGame()">もう一回</button>
     </div>
      <!-- 履歴表示ボタン -->
-    <button onclick="location.href='http://localhost:8080/janken/history'">履歴表示</button>
-    
+    <form action="/history" method="post">
+            <button type="submit" class="history-button">履歴表示</button>
+        </form>
+    </div>
 </body>
 </html>

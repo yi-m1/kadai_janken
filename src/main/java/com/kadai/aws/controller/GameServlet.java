@@ -1,4 +1,4 @@
-package jp.co.sfrontier.ss3.janken_game.controller.game;
+package com.kadai.aws.controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -15,11 +15,10 @@ import org.apache.logging.log4j.Logger;
 import org.json.JSONObject;
 
 import com.kadai.aws.model.UserInfo;
+import com.kadai.aws.service.JankenServiceTomari;
 
-import jp.co.sfrontier.ss3.janken_game.common.Hand;
-import jp.co.sfrontier.ss3.janken_game.controller.common.ServletUtils;
-import jp.co.sfrontier.ss3.janken_game.service.janken.JankenService;
-import jp.co.sfrontier.ss3.janken_game.service.janken.value.Player;
+import common.Hand;
+import value.Player;
 
 /**
  * じゃんけんゲームをするためのコントローラークラス
@@ -40,7 +39,11 @@ public class GameServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/game/play.jsp");
         dispatcher.forward(request, response);
     }
-
+    
+    /**
+     * プレイヤーが選んだ手を受け取り、じゃんけんの結果を計算するPOSTリクエストの処理メソッド。
+     * クライアントにゲームの結果をJSON形式で返す。
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -59,9 +62,9 @@ public class GameServlet extends HttpServlet {
             putResponse(response, jsonResponse);
             return;
         }
-
-        JankenService jankenService = new JankenService();
-
+     // じゃんけんの処理を行うサービスオブジェクトを作成
+        JankenServiceTomari jankenService = new JankenServiceTomari();
+     // プレイヤーオブジェクトを作成
         Player player = new Player(userInfo.getUserId(), hand);
 
         try {
@@ -82,7 +85,10 @@ public class GameServlet extends HttpServlet {
             putResponse(response, jsonResponse);
         }
     }
-
+    /**
+     * プレイヤーとCPUの手を比較して、CPUの手を決定するメソッド。
+     * じゃんけんの結果（勝ち/負け/あいこ）に基づき、CPUの手を返す。
+     */
     private String getCpuHand(Hand hand, int result) {
         Hand cpuHand = hand;
         if (result > 0) {
@@ -114,7 +120,9 @@ public class GameServlet extends HttpServlet {
 
         return cpuHand.name();
     }
-
+    /**
+     * クライアントにJSONレスポンスを返すためのメソッド
+     */
     private void putResponse(HttpServletResponse response, JSONObject jsonResponse) throws IOException {
 
         response.setContentType("application/json;charset=UTF-8");
