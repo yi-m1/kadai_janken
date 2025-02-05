@@ -14,13 +14,11 @@ import javax.servlet.http.HttpSession;
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// GET メソッドを追加して、GETリクエストにも対応
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doTask(request, response);
     }
 
-    // POST メソッド
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         doTask(request, response);
@@ -30,15 +28,15 @@ public class LogoutServlet extends HttpServlet {
     private void doTask(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // セッションを取得
-        HttpSession session = request.getSession(false); // false: セッションがない場合は新しく作成しない
+        // セッションを取得する
+        HttpSession session = request.getSession(false);
 
         if (session != null) {
-            // セッションが存在する場合、セッションを無効化
+            // セッションが存在する場合、セッションを無効化する
             session.invalidate();
         }
 
-        // ログアウト後にログイン画面にリダイレクト
+        // ログアウト後にログイン画面にリダイレクトする
         response.sendRedirect(request.getContextPath() + "/login");
     }
 }
