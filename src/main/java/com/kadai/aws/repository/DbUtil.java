@@ -1,7 +1,5 @@
 package com.kadai.aws.repository;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -23,7 +21,7 @@ public class DbUtil {
 
     private static Properties properties = new Properties();
 
-    public static final String DEFAULT_SETTING_PROPERTIES_FILE = "/WEB-INF/classes/application.properties";
+    public static final String DEFAULT_SETTING_PROPERTIES_FILE = "application.properties";
 
     private static boolean isInit = false;
 
@@ -82,7 +80,8 @@ public class DbUtil {
      * @throws SQLException
      */
     protected static void init(String filename) throws SQLException {
-        try (InputStream in = new FileInputStream(new File(filename))) {
+//		try (InputStream in = new FileInputStream(new File(filename))) {
+        try (InputStream in = DbUtil.class.getClassLoader().getResourceAsStream(filename)) {
             properties.load(in);
         } catch (IOException e) {
             logger.error("初期化に失敗しました。[filename={}]", filename, e);
@@ -101,7 +100,7 @@ public class DbUtil {
         try {
             Class.forName(properties.getProperty("spring.datasource.driverClassName"));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();//loggerになおす
+            logger.error("JDBCドライバのロードに失敗しました", e);
             throw new SQLException("JDBCドライバのロードに失敗しました", e);
         }
     }

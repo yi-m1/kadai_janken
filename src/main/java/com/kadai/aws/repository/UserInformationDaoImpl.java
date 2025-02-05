@@ -28,19 +28,18 @@ public class UserInformationDaoImpl implements UserInformationDao {
 		return connection;
 	}
 
-	/*
+	/**
 	 * DBからユーザ情報を取得するメソッド
 	 */
 	@Override
-	public UserInfo findByMailAdressAndUserId(String mailAdress, String userId) throws SQLException {
+	public UserInfo findByMailAddress(String mailAddress) throws SQLException {
 		//コネクションの取得
 		Connection conn = getConnection();
 
 		//ステートメントの作成
-		String sql = "SELECT mail_address, user_id FROM user_information_tbl WHERE mail_address = ? AND user_id = ?";
+		String sql = "SELECT mail_address, user_name FROM user_information_tbl WHERE mail_address = ?";
 		PreparedStatement pstmt = conn.prepareStatement(sql);
-		pstmt.setString(1, mailAdress);
-		pstmt.setString(2, userId);
+		pstmt.setString(1, mailAddress);
 
 		//ステートメントの実行
 		ResultSet rset = pstmt.executeQuery();
@@ -50,25 +49,86 @@ public class UserInformationDaoImpl implements UserInformationDao {
 		if (rset.next()) {
 			userInfo = new UserInfo();
 			userInfo.setMailAddress(rset.getString("mail_address"));
-			userInfo.setUserId(rset.getString("user_id"));
+			userInfo.setUserName(rset.getString("user_name"));
 		}
-
 		pstmt.close();
 
 		//ユーザが存在するときはユーザ情報を返し、存在しない場合nullを返す
 		return userInfo;
 	}
 
-	/*
+	/**
 	 * 新規ユーザ情報をDBに登録するメソッド
 	 */
 	@Override
-	public void addUser(String mailAdress, String userId) throws SQLException {
-		String sql = "INSERT INTO user_information_tbl (mail_address, user_id) VALUES (?, ?)";
+	public void addUser(String mailAddress, String userName) throws SQLException {
+		String sql = "INSERT INTO user_information_tbl (user_name, mail_address) VALUES (?, ?)";
 		try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
-			pstmt.setString(1, mailAdress);
-			pstmt.setString(2, userId);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, mailAddress);
 			pstmt.executeUpdate();
 		}
+	}
+	
+	/**
+	 * メールアドレスがDBに登録されているか確認するメソッド
+	 * @param mailAddress
+	 * @return isExist
+	 * @throws SQLException
+	 */
+	@Override
+	public boolean isMailAddressExists(String mailAddress) throws SQLException {
+		boolean isExist = false;
+
+		//コネクションの取得
+		Connection conn = getConnection();
+
+		//ステートメントの作成
+		String sql = "SELECT COUNT(*) FROM user_information_tbl WHERE mail_address = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, mailAddress);
+
+		//ステートメントの実行
+		ResultSet rset = pstmt.executeQuery();
+
+		//DBに同じユーザ名が存在したらtrue、存在しなければfalseを返す
+		if (rset.next()) {
+			int count = rset.getInt(1);
+			if (count > 0) {
+				isExist = true;
+			}
+		}
+		return isExist;
+	}
+	
+	/**
+	 * ユーザ名がDBに登録されているか確認するメソッド
+	 * @param userName
+	 * @return isExist
+	 * @throws SQLException
+	 */
+	@Override
+	public boolean isUserNameExists(String userName) throws SQLException {
+		boolean isExist = false;
+
+		//コネクションの取得
+		Connection conn = getConnection();
+
+		//ステートメントの作成
+		String sql = "SELECT COUNT(*) FROM user_information_tbl WHERE user_name = ?";
+		PreparedStatement pstmt = conn.prepareStatement(sql);
+		pstmt.setString(1, userName);
+
+		//ステートメントの実行
+		ResultSet rset = pstmt.executeQuery();
+
+		//DBに同じユーザ名が存在したらtrue、存在しなければfalseを返す
+		if (rset.next()) {
+			int count = rset.getInt(1);
+			if (count > 0) {
+				isExist = true;
+			}
+		}
+		return isExist;
 	}
 }

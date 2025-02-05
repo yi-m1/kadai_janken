@@ -3,6 +3,9 @@ package com.kadai.aws.service.login;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.kadai.aws.model.UserInfo;
 import com.kadai.aws.repository.DbUtil;
 import com.kadai.aws.repository.UserInformationDao;
@@ -10,41 +13,30 @@ import com.kadai.aws.repository.UserInformationDaoImpl;
 
 public class LoginService {
 
-	public UserInfo auth(String mailAdress, String userId) {
-		UserInfo result = null;
+	private static final Logger logger = LogManager.getLogger(LoginService.class);
+
+	public UserInfo auth(String mailAddress) throws SQLException {
+		UserInfo userInfo = null;
 		Connection conn = null;
 		try {
-			//コネクションの取得
+			//コネクションを取得する
 			conn = DbUtil.getConnection(DbUtil.AutoCommitMode.OFF);
 			UserInformationDao dao = new UserInformationDaoImpl(conn);
-			
-			//既存のユーザを探す
-			result = dao.findByMailAdressAndUserId(mailAdress, userId);
-			
-			if(result == null) {
-				//ユーザが存在しない場合、新規ユーザを追加
-				dao.addUser(mailAdress, userId);
-				//新規ユーザオブジェクトを作成
-				result = new UserInfo();
-				result.setMailAddress(mailAdress);
-                result.setUserId(userId);
-			}
-			//コミット
-			DbUtil.commit(conn);
 
-		} catch (SQLException e1) {
-			e1.printStackTrace();
-			//ロールバック
-			try {
-				if(conn != null) {
-					DbUtil.rollback(conn);
-				}
-			}catch (Exception e2) {
-				e2.printStackTrace();
+			//既存のユーザを探す
+			userInfo = dao.findByMailAddress(mailAddress);
+			//既存のユーザが見つからない場合
+			if (userInfo == null) {
+				return userInfo;
 			}
+			DbUtil.commit(conn);
+		} catch (SQLException e) {
+			logger.error("DB接続に失敗しました。", e);
+			throw e;
 		} finally {
 			DbUtil.close(conn);
 		}
-		return result;
+		return userInfo;
 	}
+
 }

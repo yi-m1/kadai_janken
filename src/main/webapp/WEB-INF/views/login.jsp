@@ -6,17 +6,24 @@
     <title>ログイン</title>
 </head>
 <body>
-    <h1>じゃんけんアプリ</h1>
-    <% if (request.getAttribute("errorMessage") != null) { %>
-    <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
+    <h1>じゃんけんアプリ ログイン</h1>
+    <% if (request.getAttribute("loginError") != null) { %>
+    <p style="color: red;"><%= request.getAttribute("loginError") %></p>
 	<% } %>
 	
     <form action="<%= request.getContextPath() %>/login" method="post">
-        メールアドレス: <input type="text" name="mailAdress" required><br>
-        ユーザID: <input type="text" name="userId" required><br>
-        <div>
-        	<button type="submit">ログイン</button>
-        </div>
+    	<label for="mailAddress">メールアドレス：</label>
+        <input type="text" id="mailAddress" name="mailAddress" required><br>
+        <% 
+           String mailAddressError = (String) request.getAttribute("mailAddressError");
+           if (mailAddressError != null) {
+         %>
+        <span><%= mailAddressError %></span><br>
+        <% 
+           }
+        %>
+        <button type="submit">ログイン</button>
     </form>
+    <p>新規ユーザ登録は<a href="<%= request.getContextPath() %>/register">こちら</a>をクリックしてください。</p>
 </body>
 </html>
