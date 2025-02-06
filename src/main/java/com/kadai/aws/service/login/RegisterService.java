@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.kadai.aws.compoment.UserComponent;
+import com.kadai.aws.component.UserComponent;
 import com.kadai.aws.model.UserInfo;
 
 /**
