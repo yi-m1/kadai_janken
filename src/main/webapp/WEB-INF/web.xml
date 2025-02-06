@@ -64,5 +64,4 @@
         <url-pattern>/history</url-pattern>
     </servlet-mapping>
 
-
 </web-app>

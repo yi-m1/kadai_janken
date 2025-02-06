@@ -10,8 +10,14 @@ import java.util.Properties;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+/**
+ * データベース接続を管理するユーティリティクラス
+ */
 public class DbUtil {
 
+    /**
+     * コネクションのオートコミットモードを表すenum
+     */
     public enum AutoCommitMode {
         ON, OFF,
         ;
@@ -30,7 +36,7 @@ public class DbUtil {
     private static String PASSWORD;
 
     /**
-     * オートコミットモードをオフにしてコネクションを取り出す。
+     * オートコミットモードをオフにしてコネクションを取り出す
      * 
      * @return コネクション
      * @throws SQLException コネクションの取得に失敗した場合
@@ -39,6 +45,12 @@ public class DbUtil {
         return getConnection(AutoCommitMode.OFF);
     }
 
+    /**
+     * 指定されたオートコミットモードでコネクションを取り出す
+     * @param autoCommitMode
+     * @return コネクション
+     * @throws SQLException コネクションの取得に失敗した場合
+     */
     public static Connection getConnection(AutoCommitMode autoCommitMode) throws SQLException {
         init();
 
@@ -52,18 +64,32 @@ public class DbUtil {
         return conn;
     }
 
+    /**
+     * トランザクションをコミットする
+     * @param connection
+     * @throws SQLException コミット処理に失敗した場合
+     */
     public static void commit(Connection connection) throws SQLException {
         if (connection != null) {
             connection.commit();
         }
     }
 
+    /**
+     * トランザクションをロールバックする
+     * @param connection
+     * @throws SQLException ロールバック処理に失敗した場合
+     */
     public static void rollback(Connection connection) throws SQLException {
         if (connection != null && !connection.isClosed()) {
             connection.rollback();
         }
     }
 
+    /**
+     * データベース接続をクローズする。
+     * @param connection
+     */
     public static void close(Connection connection) {
         if (connection != null) {
             try {
@@ -75,12 +101,12 @@ public class DbUtil {
     }
 
     /**
-     * 
+     * プロパティファイルから設定を読み込み、JDBCドライバをロードする
      * @param filename
-     * @throws SQLException
+     * @throws SQLException 設定ファイルの読み込みまたはJDBCドライバのロードに失敗した場合
      */
     protected static void init(String filename) throws SQLException {
-//		try (InputStream in = new FileInputStream(new File(filename))) {
+        //		try (InputStream in = new FileInputStream(new File(filename))) {
         try (InputStream in = DbUtil.class.getClassLoader().getResourceAsStream(filename)) {
             properties.load(in);
         } catch (IOException e) {
@@ -92,9 +118,12 @@ public class DbUtil {
         USERNAME = properties.getProperty("spring.datasource.username");
         PASSWORD = properties.getProperty("spring.datasource.password");
         isInit = true;
-
     }
 
+    /**
+     * JDBCドライバを手動でロードする
+     * @throws SQLException ドライバのロードに失敗した場合
+     */
     private static void loadDriver() throws SQLException {
         // HSQLDB JDBCドライバの手動ロード
         try {
@@ -105,10 +134,15 @@ public class DbUtil {
         }
     }
 
+    /**
+     * デフォルトの設定ファイルを使用して初期化を行う
+     * @throws SQLException 初期化に失敗した場合
+     */
     protected static void init() throws SQLException {
         if (isInit) {
             return;
         }
         init(DEFAULT_SETTING_PROPERTIES_FILE);
     }
+
 }

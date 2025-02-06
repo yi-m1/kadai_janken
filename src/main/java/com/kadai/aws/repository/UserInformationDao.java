@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import com.kadai.aws.model.UserInfo;
 
 /**
- *
+ *ユーザー情報に関連するデータベース操作を規定するためのインターフェース
  */
 public interface UserInformationDao {
 	

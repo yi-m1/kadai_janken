@@ -11,10 +11,19 @@ import com.kadai.aws.repository.DbUtil;
 import com.kadai.aws.repository.UserInformationDao;
 import com.kadai.aws.repository.UserInformationDaoImpl;
 
+/**
+ * ユーザ認証に関連するサービスクラス
+ */
 public class LoginService {
 
 	private static final Logger logger = LogManager.getLogger(LoginService.class);
 
+	/**
+	 * メールアドレスを使ってユーザ情報をデータベースから検索し、認証を行うメソッド
+	 * @param mailAddress
+	 * @return ユーザ情報が見つかればuserInfo、見つからなければnull
+	 * @throws SQLException データベース接続や検索時にエラーが発生した場合
+	 */
 	public UserInfo auth(String mailAddress) throws SQLException {
 		UserInfo userInfo = null;
 		Connection conn = null;
@@ -30,9 +39,11 @@ public class LoginService {
 				return userInfo;
 			}
 			DbUtil.commit(conn);
+
 		} catch (SQLException e) {
 			logger.error("DB接続に失敗しました。", e);
 			throw e;
+
 		} finally {
 			DbUtil.close(conn);
 		}

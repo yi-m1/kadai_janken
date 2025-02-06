@@ -9,6 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * ログアウト処理を行うコントローラークラス
+ */
 @WebServlet("/logout")
 
 public class LogoutServlet extends HttpServlet {
@@ -24,7 +27,13 @@ public class LogoutServlet extends HttpServlet {
         doTask(request, response);
     }
 
-    // 実際の処理を行うメソッド
+    /**
+     * 実際のログアウト処理を行うメソッド
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     private void doTask(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 

@@ -192,7 +192,7 @@
         <button id="retry-button" style="display: none;" onclick="retryGame()">もう一回</button>
     </div>
      <!-- 履歴表示ボタン -->
-    <form action="/history" method="post">
+    <form action="/JankenGame/history" method="post">
             <button type="submit" class="history-button">履歴表示</button>
         </form>
     </div>
