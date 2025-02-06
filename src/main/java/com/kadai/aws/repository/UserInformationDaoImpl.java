@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.kadai.aws.repository;
 
 import java.sql.Connection;
@@ -11,7 +8,7 @@ import java.sql.SQLException;
 import com.kadai.aws.model.UserInfo;
 
 /**
- * 
+ * データベースにアクセスしてユーザー情報に関連する操作を行うDAOクラス
  */
 public class UserInformationDaoImpl implements UserInformationDao {
 

@@ -39,13 +39,6 @@
 		<servlet-name>LogoutServlet</servlet-name>
 		<url-pattern>/logout</url-pattern>
 	</servlet-mapping>
-	<servlet>
-		<servlet-name>GameServlet</servlet-name>
-		<servlet-class>com.kadai.aws.controller.GameServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>GameServlet</servlet-name>
-		<url-pattern>/game/Play</url-pattern>
-	</servlet-mapping>
+	
 
 </web-app>

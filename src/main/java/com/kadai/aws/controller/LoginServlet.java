@@ -18,6 +18,9 @@ import com.kadai.aws.model.UserInfo;
 import com.kadai.aws.service.login.LoginService;
 import com.kadai.aws.service.login.ValidatorService;
 
+/**
+ * ユーザーのログイン処理を担当するコントローラークラス
+ */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// ログイン画面を表示する
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -39,11 +42,10 @@ public class LoginServlet extends HttpServlet {
 		ValidatorService validator = new ValidatorService();
 		String mailAddressError = validator.validateMailAddress(mailAddress);
 		if (mailAddressError != null) {
-			request.setAttribute("mailAddressError", mailAddressError);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
-			dispatcher.forward(request, response);
-			return;
-		} else {
+			handleError(request, response, "mailAddressError", mailAddressError);
+            return;
+		} 
+		else {
 			//エラーがなければ ログイン処理を行う
 			LoginService loginService = new LoginService();
 			UserInfo userInfo;
@@ -51,10 +53,8 @@ public class LoginServlet extends HttpServlet {
 				userInfo = loginService.auth(mailAddress);
 			} catch (SQLException e) {
 				logger.error("ログイン処理中にエラーが発生しました。", e);
-				request.setAttribute("loginError", "問題が発生しログインに失敗しました。再度お試しください。");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
-				dispatcher.forward(request, response);
-				return;
+				handleError(request, response, "loginError", "問題が発生しログインに失敗しました。再度お試しください。");
+                return;
 			}
 
 			// ログイン成功時、セッションにユーザー情報を保存する
@@ -65,16 +65,32 @@ public class LoginServlet extends HttpServlet {
 				//じゃんけん画面に遷移する
 				response.sendRedirect(request.getContextPath() + "/game/Play");
 				//下記はテストページ表示用
-//				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/logout.jsp");
-//				dispatcher.forward(request, response);
-
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/logout.jsp");
+//				dispatcher.forward(request, response)
 			}
 			//認証に失敗した場合は再度ログイン画面を出す
 			else {
-				request.setAttribute("loginError", "ログインできませんでした。メールアドレスをご確認ください。");
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
-				dispatcher.forward(request, response);
+				handleError(request, response, "loginError", "ログインできませんでした。メールアドレスをご確認ください。");
 			}
 		}
 	}
+	
+	/**
+	 * エラー処理を共通化したメソッド
+	 * @param request
+	 * @param response
+	 * @param errorKey
+	 * @param errorMessage
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void handleError(HttpServletRequest request, HttpServletResponse response, String errorKey, String errorMessage)
+            throws ServletException, IOException {
+        // エラーメッセージをリクエストにセットする
+        request.setAttribute(errorKey, errorMessage);
+        // ログイン画面にフォワードする
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
+        dispatcher.forward(request, response);
+    }
+
 }
