@@ -1,13 +1,18 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>じゃんけんゲーム</title>
-</head>
-    <script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>じゃんけんゲーム</title>
+<!-- BootstrapのCDN -->
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+    crossorigin="anonymous">
+<script>
         let winStreak = 0;
         const userId = "user123";  //仮のユーザーID
 
@@ -42,18 +47,17 @@
                 const winStreakText = document.getElementById('win-streak');
 
                 // CPUの手を画像で表示
-                cpuHandImg.src = '/JankenGame/images/' + cpuHand + '.png';
+                cpuHandImg.src = '/JankenGame/images/' + Hand + '.png';
                 document.getElementById('cpu-hand').style.display = 'block';
-<!--                cpuHandImg.style.display = 'block';-->
 
-                // 勝敗を表示
-                resultText.innerText = result.message;
-                if (result.winner === 'player') {
-                    winStreak++;
-                } else {
-                    winStreak = 0;
-                }
-                winStreakText.innerText = `連勝数: ${winStreak}`;
+<!--                // 勝敗を表示-->
+<!--                resultText.innerText = result.message;-->
+<!--                if (result.winner === 'player') {-->
+<!--                    winStreak++;-->
+<!--                } else {-->
+<!--                    winStreak = 0;-->
+<!--                }-->
+<!--                winStreakText.innerText = `連勝数: ${winStreak}`;-->
 
                 // もう一回ボタンを表示
                 document.getElementById('retry-button').style.display = 'inline-block';
@@ -72,129 +76,104 @@
             // 選択した手をリセット
             const buttons = document.querySelectorAll('input[name="hand"]');
             buttons.forEach(button => button.classList.remove('selected'));
+            
+            // 「もう一回」ボタンを表示
+            document.getElementById('retry-button').style.display = 'inline-block'; // ここで再表示
         }
     </script>
-        <style>
-        /* 全体のレイアウトを中央に配置 */
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-        }
+<style>
+body {
+    margin: 0; /* ページ全体の余白を0に設定 */
+    height: 100vh; /* ビューポートの高さを100%に */
+    display: flex; /* Flexboxレイアウトを使用 */
+    justify-content: center; /* 水平方向に中央揃え */
+<!--    align-items: center; /* 垂直方向に中央揃え */-->
+    flex-direction: column; /* 要素を縦に並べる */
+    text-align: center; /* テキストを中央揃え */
+}
 
-        /* ゲームコンテンツを中央に配置 */
-        .game-container {
-            text-align: center;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            background-color: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+h1 {
+    margin-top: 10px; /* 上部に少し余白を追加 */
+}
 
-        /* ラジオボタンのスタイル */
-        .button-container {
-            margin: 10px;
-        }
+.button-container {
+    margin-top: 20px; /* ボタンの上に余白を追加 */
+    display: flex; /* 横並びに配置 */
+    justify-content: center; /* ボタンを中央揃え */
+    align-items: center; /* 垂直方向で中央揃え */
+}
 
-        /* ボタンのスタイル */
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: none;
-            background-color: #4CAF50;
-            color: white;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
+.button-container label {
+    margin: 0 15px; /* ラベル間の間隔を開ける */
+    font-size: 18px; /* フォントサイズを少し大きく */
+}
 
-        button:hover {
-            background-color: #45a049;
-        }
+button {
+    margin-top: 20px;
+}
 
-        /* CPUの手画像のスタイル */
-        #cpu-hand-img {
-            width: 40%;
-            height: 50%;
-            margin-top: 20px;
-        }
+#cpu-hand {
+    display: none; /* 初期状態では非表示 */
+    position: relative; /* 相対配置 */
+    text-align: center; /* 画像を中央揃え */
+}
 
-        /* 結果表示のスタイル */
-        #result {
-            font-size: 20px;
-            margin-top: 20px;
-        }
+#cpu-hand-img {
+    width: 150px; /* 画像のサイズ調整 */
+    height: auto; /* アスペクト比を保つ */
+}
 
-        /* 連勝数のスタイル */
-        #win-streak {
-            margin-top: 10px;
-            font-size: 18px;
-        }
-
-        /* 履歴表示ボタン */
-        .history-button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            border: 2px solid #4CAF50;
-            background-color: white;
-            color: #4CAF50;
-            border-radius: 5px;
-        }
-
-        .history-button:hover {
-            background-color: #4CAF50;
-            color: white;
-        }
-    </style>
+.button-history {
+    margin-top: 20px; /* ボタンの上に余白を追加 */
+    display: flex; /* 横並びに配置 */
+    justify-content: center; /* 中央揃え */
+    align-items: center; /* 垂直方向で中央揃え */
+}
+</style>
 </head>
 <body>
-<div class="game-container">
-    <h1>じゃんけんゲーム</h1>
-    
-    <!-- ラジオボタンで手を選ぶ -->
-    <div class="button-container">
-        <label>
-            <input type="radio" name="hand" value="rock" id="rock" onclick="handleSelection('rock')"> グー
-        </label>
-        <label>
-            <input type="radio" name="hand" value="scissors" id="scissors" onclick="handleSelection('scissors')"> チョキ
-        </label>
-        <label>
-            <input type="radio" name="hand" value="paper" id="paper" onclick="handleSelection('paper')"> パー
-        </label>
-    </div>
-    
-    <!-- 決定ボタン -->
-    <div class="button-container">
-        <button id="submit-button" onclick="playGame()">決定</button>
-    </div>
-    
-    <!-- CPUの手を表示 -->
-    <div id="cpu-hand" style="display: none;">
-        <img id="cpu-hand-img" src="" alt="CPUの手">
-    </div>
+    <div class="game-container">
+        <h1>じゃんけんゲーム</h1>
 
-    <!-- 結果表示 -->
-    <div id="result"></div>
+        <!-- ラジオボタンで手を選ぶ -->
+        <div class="button-container">
+            <label> <input type="radio" name="hand" value="rock"
+                id="rock" onclick="handleSelection('rock')"> グー
+            </label> <label> <input type="radio" name="hand" value="scissors"
+                id="scissors" onclick="handleSelection('scissors')"> チョキ
+            </label> <label> <input type="radio" name="hand" value="paper"
+                id="paper" onclick="handleSelection('paper')"> パー
+            </label>
+        </div>
 
-    <!-- 勝敗連勝数表示 -->
-    <div id="win-streak"></div>
+        <!-- 決定ボタン -->
+        <div class="button-container">
+            <button id="submit-button" onclick="playGame()">決定</button>
+        </div>
 
-    <!-- もう一回ボタン -->
-    <div class="button-container">
-        <button id="retry-button" style="display: none;" onclick="retryGame()">もう一回</button>
+        <!-- 結果表示 -->
+        <div id="result"></div>
+
+        <!-- 勝敗連勝数表示 -->
+        <div id="win-streak"></div>
+
+        <!-- もう一回ボタン -->
+        <div class="button-container">
+            <button id="retry-button" style="display: none;"
+                onclick="retryGame()">もう一回</button>
+        </div>
+        <!-- CPUの手を表示 -->
+        <div id="cpu-hand" style="display: none;">
+            <img id="cpu-hand-img" src="" alt="CPUの手">
+        </div>
+        
+        <!-- 履歴表示ボタン -->
+        <div class="button-history">
+            <form action="/JankenGame/history" method="post">
+                <button type="submit" class="history-button">履歴表示</button>
+            </form>
+        </div>
     </div>
-     <!-- 履歴表示ボタン -->
-    <form action="/JankenGame/history" method="post">
-            <button type="submit" class="history-button">履歴表示</button>
-        </form>
     </div>
 </body>
 </html>
