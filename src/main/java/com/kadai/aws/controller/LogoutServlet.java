@@ -17,35 +17,35 @@ import javax.servlet.http.HttpSession;
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doTask(request, response);
-    }
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doTask(request, response);
+	}
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        doTask(request, response);
-    }
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		doTask(request, response);
+	}
 
-    /**
-     * 実際のログアウト処理を行うメソッド
-     * @param request
-     * @param response
-     * @throws ServletException
-     * @throws IOException
-     */
-    private void doTask(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	/**
+	 * 実際のログアウト処理を行うメソッド
+	 * @param request
+	 * @param response
+	 * @throws ServletException
+	 * @throws IOException
+	 */
+	private void doTask(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        // セッションを取得する
-        HttpSession session = request.getSession(false);
+		// セッションを取得する
+		HttpSession session = request.getSession(false);
 
-        if (session != null) {
-            // セッションが存在する場合、セッションを無効化する
-            session.invalidate();
-        }
+		if (session != null) {
+			// セッションが存在する場合、セッションを無効化する
+			session.invalidate();
+		}
 
-        // ログアウト後にログイン画面にリダイレクトする
-        response.sendRedirect(request.getContextPath() + "/login");
-    }
+		// ログアウト後にログイン画面にリダイレクトする
+		response.sendRedirect(request.getContextPath() + "/login");
+	}
 }

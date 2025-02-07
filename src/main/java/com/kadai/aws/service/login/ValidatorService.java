@@ -38,7 +38,7 @@ public class ValidatorService {
 		if (userName == null || userName.isEmpty()) {
 			return "ユーザ名を入力してください。";
 		}
-		if(userName.length() > 100) {
+		if (userName.length() > 100) {
 			return "ユーザ名は最大100文字以内で入力してください。";
 		}
 		return null;

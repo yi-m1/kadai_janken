@@ -46,8 +46,9 @@ public class RegisterServlet extends HttpServlet {
 		String userNameError = validator.validateUserName(userName);
 
 		if (mailAddressError != null || userNameError != null) {
-			handleError(request, response, "mailAddressError", mailAddressError, "userNameError", userNameError, mailAddress, userName);
-            return;
+			handleError(request, response, "mailAddressError", mailAddressError, "userNameError", userNameError,
+					mailAddress, userName);
+			return;
 		}
 
 		//ユーザ情報が既に使用されていないか確認する
@@ -55,12 +56,13 @@ public class RegisterServlet extends HttpServlet {
 			UserComponent.UserCheckResult userCheckResult = validator.validateDuplicateUser(mailAddress, userName);
 
 			if (userCheckResult == UserCheckResult.CONTAIN_MAIL_ADDRESS) {
-				handleError(request, response, "mailAddressError", "メールアドレスが既に使われています。", null, null, mailAddress, userName);
-                return;
+				handleError(request, response, "mailAddressError", "メールアドレスが既に使われています。", null, null, mailAddress,
+						userName);
+				return;
 			}
 			if (userCheckResult == UserCheckResult.CONTAIN_USERNAME) {
 				handleError(request, response, null, null, "userNameError", "ユーザ名が既に使われています。", mailAddress, userName);
-                return;
+				return;
 			}
 
 		} catch (SQLException e) {
@@ -68,7 +70,7 @@ public class RegisterServlet extends HttpServlet {
 
 			// ユーザーに表示するエラーメッセージをリクエストにセット
 			handleError(request, response, "registerError", "問題が発生しユーザ登録に失敗しました。再度お試しください。", null, null, null, null);
-            throw new IOException("ユーザー情報の確認中に問題が発生しました。", e);
+			throw new IOException("ユーザー情報の確認中に問題が発生しました。", e);
 		}
 
 		//エラーがなければ新規登録処理を行う
@@ -77,13 +79,13 @@ public class RegisterServlet extends HttpServlet {
 			UserInfo userInfo = registerService.registerUser(mailAddress, userName);
 
 			// セッションにユーザ情報を保存する
-		    ServletUtils.setUserInfo(request, userInfo);
+			ServletUtils.setUserInfo(request, userInfo);
 
 		} catch (SQLException e) {
 			logger.error("ユーザ登録中にエラーが発生しました。", e);
 			//登録でエラーが発生した場合、エラーメッセージを表示する。
 			handleError(request, response, "registerError", "問題が発生しユーザ登録に失敗しました。再度お試しください。", null, null, null, null);
-            return;
+			return;
 		}
 
 		//じゃんけん画面に遷移する

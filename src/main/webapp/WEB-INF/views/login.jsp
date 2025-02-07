@@ -70,19 +70,22 @@ button:hover {
 		%>
 
 		<form action="<%=request.getContextPath()%>/login" method="post">
-			<label for="mailAddress">メールアドレス：</label>
-			<input type="text" name="mailAddress" required><br>
+			<label for="mailAddress">メールアドレス：</label> <input type="text"
+				name="mailAddress" required><br>
 			<%
 			String mailAddressError = (String) request.getAttribute("mailAddressError");
 			if (mailAddressError != null) {
 			%>
-			<span class="error"><%=mailAddressError%></span><br><br>
+			<span class="error"><%=mailAddressError%></span><br>
+			<br>
 			<%
 			}
 			%>
 			<button type="submit">ログイン</button>
 		</form>
-		<p class="link">新規ユーザ登録は<a href="<%=request.getContextPath()%>/register">こちら</a>をクリックしてください。</p>
+		<p class="link">
+			新規ユーザ登録は<a href="<%=request.getContextPath()%>/register">こちら</a>をクリックしてください。
+		</p>
 	</div>
 </body>
 </html>
