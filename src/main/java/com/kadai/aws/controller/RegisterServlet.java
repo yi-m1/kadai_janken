@@ -14,8 +14,8 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.kadai.aws.compoment.UserComponent;
-import com.kadai.aws.compoment.UserComponent.UserCheckResult;
+import com.kadai.aws.component.UserComponent;
+import com.kadai.aws.component.UserComponent.UserCheckResult;
 import com.kadai.aws.model.UserInfo;
 import com.kadai.aws.service.login.RegisterService;
 import com.kadai.aws.service.login.ValidatorService;

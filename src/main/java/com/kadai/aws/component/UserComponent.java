@@ -1,4 +1,4 @@
-package com.kadai.aws.compoment;
+package com.kadai.aws.component;
 
 import java.sql.Connection;
 import java.sql.SQLException;
