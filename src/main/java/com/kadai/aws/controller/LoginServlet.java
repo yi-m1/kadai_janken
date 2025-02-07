@@ -59,7 +59,6 @@ public class LoginServlet extends HttpServlet {
 			// ログイン成功時、セッションにユーザー情報を保存する
 			if (userInfo != null) {
 				ServletUtils.setUserInfo(request, userInfo);
-
 				//じゃんけん画面に遷移する
 				response.sendRedirect(request.getContextPath() + "/game/Play");
 			} else {
@@ -78,13 +77,12 @@ public class LoginServlet extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void handleError(HttpServletRequest request, HttpServletResponse response, String errorKey,
-			String errorMessage)
-			throws ServletException, IOException {
-		// エラーメッセージをリクエストにセットする
-		request.setAttribute(errorKey, errorMessage);
-		// ログイン画面にフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
-		dispatcher.forward(request, response);
-	}
+	private void handleError(HttpServletRequest request, HttpServletResponse response, String errorKey, String errorMessage)
+            throws ServletException, IOException {
+        // エラーメッセージをリクエストにセットする
+        request.setAttribute(errorKey, errorMessage);
+        // ログイン画面にフォワードする
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+        dispatcher.forward(request, response);
+    }
 }

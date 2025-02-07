@@ -46,8 +46,7 @@ public class RegisterServlet extends HttpServlet {
 		String userNameError = validator.validateUserName(userName);
 
 		if (mailAddressError != null || userNameError != null) {
-			handleError(request, response, "mailAddressError", mailAddressError, "userNameError", userNameError,
-					mailAddress, userName);
+			handleError(request, response, "mailAddressError", mailAddressError, "userNameError", userNameError, mailAddress, userName);
 			return;
 		}
 
@@ -56,8 +55,7 @@ public class RegisterServlet extends HttpServlet {
 			UserComponent.UserCheckResult userCheckResult = validator.validateDuplicateUser(mailAddress, userName);
 
 			if (userCheckResult == UserCheckResult.CONTAIN_MAIL_ADDRESS) {
-				handleError(request, response, "mailAddressError", "メールアドレスが既に使われています。", null, null, mailAddress,
-						userName);
+				handleError(request, response, "mailAddressError", "メールアドレスが既に使われています。", null, null, mailAddress, userName);
 				return;
 			}
 			if (userCheckResult == UserCheckResult.CONTAIN_USERNAME) {

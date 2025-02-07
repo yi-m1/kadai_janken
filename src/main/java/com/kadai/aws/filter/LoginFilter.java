@@ -12,12 +12,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kadai.aws.controller.ServletUtils;
 
+/**
+ * ユーザーがログインしていない場合に特定のページにアクセスできないようにするためのフィルタークラス
+ */
 @WebFilter(urlPatterns = { "/game/Play", "/history" })
 public class LoginFilter extends HttpFilter {
 
 	public void init(FilterConfig filterConfig) throws ServletException {
 	}
 
+  /**
+	 * リクエストのフィルタリングを行うメソッド
+	 */
 	public void doFilter(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 

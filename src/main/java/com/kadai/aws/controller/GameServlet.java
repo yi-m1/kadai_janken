@@ -39,7 +39,7 @@ public class GameServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/game/play.jsp");
         dispatcher.forward(request, response);
     }
-    
+
     /**
      * プレイヤーが選んだ手を受け取り、じゃんけんの結果を計算するPOSTリクエストの処理メソッド。
      * クライアントにゲームの結果をJSON形式で返す。
@@ -62,9 +62,9 @@ public class GameServlet extends HttpServlet {
             putResponse(response, jsonResponse);
             return;
         }
-     // じゃんけんの処理を行うサービスオブジェクトを作成
+        // じゃんけんの処理を行うサービスオブジェクトを作成
         JankenServiceTomari jankenService = new JankenServiceTomari();
-     // プレイヤーオブジェクトを作成
+        // プレイヤーオブジェクトを作成
         Player player = new Player(userInfo.getUserId(), hand);
 
         try {
@@ -85,6 +85,7 @@ public class GameServlet extends HttpServlet {
             putResponse(response, jsonResponse);
         }
     }
+
     /**
      * プレイヤーとCPUの手を比較して、CPUの手を決定するメソッド。
      * じゃんけんの結果（勝ち/負け/あいこ）に基づき、CPUの手を返す。
@@ -120,6 +121,7 @@ public class GameServlet extends HttpServlet {
 
         return cpuHand.name();
     }
+
     /**
      * クライアントにJSONレスポンスを返すためのメソッド
      */
@@ -131,4 +133,5 @@ public class GameServlet extends HttpServlet {
         response.getOutputStream().flush();
 
     }
+
 }
