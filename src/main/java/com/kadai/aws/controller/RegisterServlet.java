@@ -32,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		//新規ユーザ登録画面を表示する
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/register.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/register.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -118,7 +118,7 @@ public class RegisterServlet extends HttpServlet {
 			request.setAttribute(errorKey2, errorMessage2);
 		}
 		// 登録画面にフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/register.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/register.jsp");
 		dispatcher.forward(request, response);
 	}
 }

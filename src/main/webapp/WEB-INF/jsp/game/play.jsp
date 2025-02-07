@@ -173,6 +173,11 @@ button {
                 <button type="submit" class="history-button">履歴表示</button>
             </form>
         </div>
+        <form action="<%=request.getContextPath()%>/logout" method="post">
+		<div>
+			<button type="submit">ログアウト</button>
+		</div>
+	    </form>
     </div>
     </div>
 </body>

@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		// ログイン画面を表示する
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -89,7 +89,7 @@ public class LoginServlet extends HttpServlet {
         // エラーメッセージをリクエストにセットする
         request.setAttribute(errorKey, errorMessage);
         // ログイン画面にフォワードする
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/login.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
         dispatcher.forward(request, response);
     }
 
