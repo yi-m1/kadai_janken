@@ -57,6 +57,7 @@ public class GameServlet extends HttpServlet {
 
         // 不正な入力の場合エラーを返す
         if (hand == null) {
+            logger.debug("input error{hand={}}", playerHand);
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("status", "ERROR");
             putResponse(response, jsonResponse);
@@ -66,10 +67,10 @@ public class GameServlet extends HttpServlet {
         JankenServiceTomari jankenService = new JankenServiceTomari();
         // プレイヤーオブジェクトを作成
         Player player = new Player(userInfo.getUserId(), hand);
-
+        logger.debug("call jankenService");
         try {
             int result = jankenService.fight(player);
-
+            logger.debug("jankenResult{result={}}",result);
             // 結果としてJSONを返す
             JSONObject jsonResponse = new JSONObject();
             jsonResponse.put("status", "OK");

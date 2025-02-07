@@ -35,7 +35,7 @@
 
             // AJAXリクエストをバックエンドに送信
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "/JankenGame/game/Play", true);
+            xhr.open("POST", "/JankenGame/game/Play?hand=" + hand, true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
             xhr.onload = function() {
@@ -47,17 +47,21 @@
                 const winStreakText = document.getElementById('win-streak');
 
                 // CPUの手を画像で表示
-                cpuHandImg.src = '/JankenGame/images/' + Hand + '.png';
+                if(cpuHand){
+                cpuHandImg.src = '/JankenGame/images/' + cpuHand + '.png';
                 document.getElementById('cpu-hand').style.display = 'block';
+                }else{
+                    console.error("CPUの手が未定義です");
+                }
 
-<!--                // 勝敗を表示-->
-<!--                resultText.innerText = result.message;-->
-<!--                if (result.winner === 'player') {-->
-<!--                    winStreak++;-->
-<!--                } else {-->
-<!--                    winStreak = 0;-->
-<!--                }-->
-<!--                winStreakText.innerText = `連勝数: ${winStreak}`;-->
+                // 勝敗を表示
+                resultText.innerText = result.message;
+                if (result.winner === 'player') {
+                    winStreak++;
+                } else {
+                    winStreak = 0;
+                }
+                winStreakText.innerText = `連勝数: ${winStreak}`;
 
                 // もう一回ボタンを表示
                 document.getElementById('retry-button').style.display = 'inline-block';
@@ -86,8 +90,8 @@ body {
     margin: 0; /* ページ全体の余白を0に設定 */
     height: 100vh; /* ビューポートの高さを100%に */
     display: flex; /* Flexboxレイアウトを使用 */
-    justify-content: center; /* 水平方向に中央揃え */
-<!--    align-items: center; /* 垂直方向に中央揃え */-->
+    justify-content: center; /* 水平方向に中央揃え */ <!--
+    align-items: center; /* 垂直方向に中央揃え */ -->
     flex-direction: column; /* 要素を縦に並べる */
     text-align: center; /* テキストを中央揃え */
 }
@@ -166,13 +170,18 @@ button {
         <div id="cpu-hand" style="display: none;">
             <img id="cpu-hand-img" src="" alt="CPUの手">
         </div>
-        
+
         <!-- 履歴表示ボタン -->
         <div class="button-history">
             <form action="/JankenGame/history" method="post">
                 <button type="submit" class="history-button">履歴表示</button>
             </form>
         </div>
+        <form action="<%=request.getContextPath()%>/logout" method="post">
+            <div>
+                <button type="submit">ログアウト</button>
+            </div>
+        </form>
     </div>
     </div>
 </body>

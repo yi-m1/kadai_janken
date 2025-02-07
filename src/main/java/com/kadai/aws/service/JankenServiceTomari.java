@@ -44,15 +44,17 @@ public class JankenServiceTomari {
         Date now = new Date();
 
         Connection connection = DbUtil.getConnection();
-
+        logger.debug("connection get");
         ResultHistoryTblDao dao = new ResultHistoryTblDao(connection);
-
+        logger.debug("tblDao new");
         try {
             dao.insert(createRecord(player1, player2.getUserId(), result, now));
 
             dao.insert(createRecord(player2, player1.getUserId(), result * (-1), now));
 
+            logger.debug("connection commit");
             DbUtil.commit(connection);
+            
         } catch (SQLException e) {
 
             DbUtil.rollback(connection);
@@ -60,10 +62,12 @@ public class JankenServiceTomari {
         } finally {
 
             DbUtil.close(connection);
+            logger.debug("connection close");
         }
 
         return result;
     }
+
     /**
      * プレイヤーの対戦履歴を保存するためのレコードを作成
      */
@@ -91,14 +95,14 @@ public class JankenServiceTomari {
 
         // ランダムな数に基づいて Hand を返す
         switch (randomNumber) {
-            case 0:
-                return Hand.ROCK;
-            case 1:
-                return Hand.SCISSORS;
-            case 2:
-                return Hand.PAPER;
-            default:
-                throw new IllegalStateException("Unexpected value: " + randomNumber);
+        case 0:
+            return Hand.ROCK;
+        case 1:
+            return Hand.SCISSORS;
+        case 2:
+            return Hand.PAPER;
+        default:
+            throw new IllegalStateException("Unexpected value: " + randomNumber);
         }
     }
 
