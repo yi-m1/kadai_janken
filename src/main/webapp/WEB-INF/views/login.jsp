@@ -70,8 +70,8 @@ button:hover {
 		%>
 
 		<form action="<%=request.getContextPath()%>/login" method="post">
-			<label for="mailAddress">メールアドレス：</label> <input type="text"
-				name="mailAddress" required><br>
+			<label for="mailAddress">メールアドレス：</label>
+			<input type="text" name="mailAddress" required><br>
 			<%
 			String mailAddressError = (String) request.getAttribute("mailAddressError");
 			if (mailAddressError != null) {
