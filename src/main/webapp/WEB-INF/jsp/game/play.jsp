@@ -35,40 +35,54 @@
 
             // AJAXリクエストをバックエンドに送信
             const xhr = new XMLHttpRequest();
-            xhr.open("POST", "/JankenGame/game/Play?hand=" + hand, true);
+            xhr.open("POST", "/JankenGame/game/Play", true);
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            
+            // プレイヤーの手をリクエストに含めて送信
+            xhr.send('hand=' + hand);
 
             xhr.onload = function() {
                 const response = JSON.parse(xhr.responseText);
+                const status = response.status;
                 const cpuHand = response.cpuHand;
                 const result = response.result;
                 const cpuHandImg = document.getElementById('cpu-hand-img');
                 const resultText = document.getElementById('result');
                 const winStreakText = document.getElementById('win-streak');
 
+                // 
+                if(status != 'OK'){
+                    //TODO エラーダイアログを出す
+                    return;
+                }
                 // CPUの手を画像で表示
-                if(cpuHand){
                 cpuHandImg.src = '/JankenGame/images/' + cpuHand + '.png';
                 document.getElementById('cpu-hand').style.display = 'block';
-                }else{
-                    console.error("CPUの手が未定義です");
-                }
+        
 
                 // 勝敗を表示
-                resultText.innerText = result.message;
-                if (result.winner === 'player') {
+                if(result > 0){
+                    resultText.innerText = "あなたの勝ちです";
                     winStreak++;
-                } else {
+                }else if(result < 0){
+                    resultText.innerText = "あなたの負けです";
+                    winStreak = 0;
+                }else{
+                    resultText.innerText = "引き分けです";
                     winStreak = 0;
                 }
-                winStreakText.innerText = `連勝数: ${winStreak}`;
-
+                
+                if(winStreak > 0){
+                    winStreakText.innerText = '連勝数:' + winStreak + '連勝';
+                }else{
+                    winStreakText.innerText = "";
+                }
+                
                 // もう一回ボタンを表示
                 document.getElementById('retry-button').style.display = 'inline-block';
             };
 
-            // プレイヤーの手をリクエストに含めて送信
-            xhr.send(`hand=${hand}`);
+
         }
 
         function retryGame() {
@@ -161,14 +175,15 @@ button {
         <!-- 勝敗連勝数表示 -->
         <div id="win-streak"></div>
 
+        <!-- CPUの手を表示 -->
+        <div id="cpu-hand" style="display: none;">
+            <img id="cpu-hand-img" src="" alt="CPUの手">
+        </div>
+
         <!-- もう一回ボタン -->
         <div class="button-container">
             <button id="retry-button" style="display: none;"
                 onclick="retryGame()">もう一回</button>
-        </div>
-        <!-- CPUの手を表示 -->
-        <div id="cpu-hand" style="display: none;">
-            <img id="cpu-hand-img" src="" alt="CPUの手">
         </div>
 
         <!-- 履歴表示ボタン -->
