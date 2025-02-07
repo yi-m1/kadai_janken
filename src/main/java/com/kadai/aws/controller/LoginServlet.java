@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -34,7 +33,8 @@ public class LoginServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String mailAddress = request.getParameter("mailAddress");
 
@@ -43,9 +43,8 @@ public class LoginServlet extends HttpServlet {
 		String mailAddressError = validator.validateMailAddress(mailAddress);
 		if (mailAddressError != null) {
 			handleError(request, response, "mailAddressError", mailAddressError);
-            return;
-		} 
-		else {
+			return;
+		} else {
 			//エラーがなければ ログイン処理を行う
 			LoginService loginService = new LoginService();
 			UserInfo userInfo;
@@ -54,27 +53,21 @@ public class LoginServlet extends HttpServlet {
 			} catch (SQLException e) {
 				logger.error("ログイン処理中にエラーが発生しました。", e);
 				handleError(request, response, "loginError", "問題が発生しログインに失敗しました。再度お試しください。");
-                return;
+				return;
 			}
 
 			// ログイン成功時、セッションにユーザー情報を保存する
 			if (userInfo != null) {
-				HttpSession session = request.getSession();
-				session.setAttribute("userInfo", userInfo);
-
+				ServletUtils.setUserInfo(request, userInfo);
 				//じゃんけん画面に遷移する
 				response.sendRedirect(request.getContextPath() + "/game/Play");
-				//下記はテストページ表示用
-//				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/logout.jsp");
-//				dispatcher.forward(request, response)
-			}
-			//認証に失敗した場合は再度ログイン画面を出す
-			else {
+			} else {
+				//認証に失敗した場合は再度ログイン画面を出す
 				handleError(request, response, "loginError", "ログインできませんでした。メールアドレスをご確認ください。");
 			}
 		}
 	}
-	
+
 	/**
 	 * エラー処理を共通化したメソッド
 	 * @param request
@@ -92,5 +85,4 @@ public class LoginServlet extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
         dispatcher.forward(request, response);
     }
-
 }
