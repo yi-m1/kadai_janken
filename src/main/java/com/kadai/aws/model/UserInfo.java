@@ -1,15 +1,16 @@
 package com.kadai.aws.model;
 
 import java.io.Serializable;
+
 /**
  *ユーザ情報を格納するエンティティクラス
  */
 public class UserInfo implements Serializable {
 	private int userId;
 	private String mailAddress;
-    private String userName;
-    
-    public int getUserId() {
+	private String userName;
+
+	public int getUserId() {
 		return userId;
 	}
 
@@ -18,18 +19,18 @@ public class UserInfo implements Serializable {
 	}
 
 	public String getMailAddress() {
-        return mailAddress;
-    }
+		return mailAddress;
+	}
 
-    public void setMailAddress(String mailAddress) {
-        this.mailAddress = mailAddress;
-    }
-    
-    public String getUserName() {
-        return userName;
-    }
+	public void setMailAddress(String mailAddress) {
+		this.mailAddress = mailAddress;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 }

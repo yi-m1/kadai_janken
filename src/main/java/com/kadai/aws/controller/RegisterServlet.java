@@ -32,7 +32,7 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 
 		//新規ユーザ登録画面を表示する
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/register.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/register.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -48,7 +48,7 @@ public class RegisterServlet extends HttpServlet {
 
 		if (mailAddressError != null || userNameError != null) {
 			handleError(request, response, "mailAddressError", mailAddressError, "userNameError", userNameError, mailAddress, userName);
-            return;
+			return;
 		}
 
 		//ユーザ情報が既に使用されていないか確認する
@@ -57,11 +57,11 @@ public class RegisterServlet extends HttpServlet {
 
 			if (userCheckResult == UserCheckResult.CONTAIN_MAIL_ADDRESS) {
 				handleError(request, response, "mailAddressError", "メールアドレスが既に使われています。", null, null, mailAddress, userName);
-                return;
+				return;
 			}
 			if (userCheckResult == UserCheckResult.CONTAIN_USERNAME) {
 				handleError(request, response, null, null, "userNameError", "ユーザ名が既に使われています。", mailAddress, userName);
-                return;
+				return;
 			}
 
 		} catch (SQLException e) {
@@ -69,7 +69,7 @@ public class RegisterServlet extends HttpServlet {
 
 			// ユーザーに表示するエラーメッセージをリクエストにセット
 			handleError(request, response, "registerError", "問題が発生しユーザ登録に失敗しました。再度お試しください。", null, null, null, null);
-            throw new IOException("ユーザー情報の確認中に問題が発生しました。", e);
+			throw new IOException("ユーザー情報の確認中に問題が発生しました。", e);
 		}
 
 		//エラーがなければ新規登録処理を行う
@@ -85,13 +85,11 @@ public class RegisterServlet extends HttpServlet {
 			logger.error("ユーザ登録中にエラーが発生しました。", e);
 			//登録でエラーが発生した場合、エラーメッセージを表示する。
 			handleError(request, response, "registerError", "問題が発生しユーザ登録に失敗しました。再度お試しください。", null, null, null, null);
-            return;
+			return;
 		}
 
 		//じゃんけん画面に遷移する
-//		response.sendRedirect(request.getContextPath() + "/game/Play");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/logout.jsp");
-		dispatcher.forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/game/Play");
 	}
 
 	/**
@@ -120,7 +118,7 @@ public class RegisterServlet extends HttpServlet {
 			request.setAttribute(errorKey2, errorMessage2);
 		}
 		// 登録画面にフォワードする
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/register.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/register.jsp");
 		dispatcher.forward(request, response);
 	}
 }

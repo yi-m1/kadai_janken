@@ -67,7 +67,7 @@ public class UserInformationDaoImpl implements UserInformationDao {
 			pstmt.executeUpdate();
 		}
 	}
-	
+
 	/**
 	 * メールアドレスがDBに登録されているか確認するメソッド
 	 * @param mailAddress
@@ -98,7 +98,7 @@ public class UserInformationDaoImpl implements UserInformationDao {
 		}
 		return isExist;
 	}
-	
+
 	/**
 	 * ユーザ名がDBに登録されているか確認するメソッド
 	 * @param userName
