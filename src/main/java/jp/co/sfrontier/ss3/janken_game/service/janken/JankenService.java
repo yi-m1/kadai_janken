@@ -1,4 +1,4 @@
-package jp.co.sfrontier.ss3.janken_game.service;
+package jp.co.sfrontier.ss3.janken_game.service.janken;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -17,9 +17,9 @@ import value.Player;
 /**
  * じゃんけんゲームを提供するためのサービスクラス
  */
-public class JankenServiceTomari {
+public class JankenService {
 
-    private static final Logger logger = LogManager.getLogger(JankenServiceTomari.class);
+    private static final Logger logger = LogManager.getLogger(JankenService.class);
 
     public static final int CPU_ID = 1;
 

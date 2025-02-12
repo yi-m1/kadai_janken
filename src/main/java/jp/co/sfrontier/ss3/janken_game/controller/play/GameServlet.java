@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import common.Hand;
 import jp.co.sfrontier.ss3.janken_game.controller.util.ServletUtils;
 import jp.co.sfrontier.ss3.janken_game.model.UserInfo;
-import jp.co.sfrontier.ss3.janken_game.service.JankenServiceTomari;
+import jp.co.sfrontier.ss3.janken_game.service.janken.JankenService;
 import value.Player;
 
 /**
@@ -63,7 +63,7 @@ public class GameServlet extends HttpServlet {
             return;
         }
         // じゃんけんの処理を行うサービスオブジェクトを作成
-        JankenServiceTomari jankenService = new JankenServiceTomari();
+        JankenService jankenService = new JankenService();
         // プレイヤーオブジェクトを作成
         Player player = new Player(userInfo.getUserId(), hand);
 
