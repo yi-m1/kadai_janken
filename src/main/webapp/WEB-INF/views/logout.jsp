@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.kadai.aws.model.UserInfo"%>
+<%@ page import="jp.co.sfrontier.ss3.janken_game.model.UserInfo"%>
 <!DOCTYPE html>
 <html>
 <head>
