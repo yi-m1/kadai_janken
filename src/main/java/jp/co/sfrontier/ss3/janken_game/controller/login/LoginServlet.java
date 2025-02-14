@@ -15,8 +15,8 @@ import org.apache.logging.log4j.Logger;
 
 import jp.co.sfrontier.ss3.janken_game.controller.util.ServletUtils;
 import jp.co.sfrontier.ss3.janken_game.model.UserInfo;
-import jp.co.sfrontier.ss3.janken_game.servicelo.login.LoginService;
-import jp.co.sfrontier.ss3.janken_game.servicelo.login.ValidatorService;
+import jp.co.sfrontier.ss3.janken_game.service.login.LoginService;
+import jp.co.sfrontier.ss3.janken_game.service.login.ValidatorService;
 
 /**
  * ユーザーのログイン処理を担当するコントローラークラス
@@ -51,6 +51,7 @@ public class LoginServlet extends HttpServlet {
 			UserInfo userInfo;
 			try {
 				userInfo = loginService.auth(mailAddress);
+
 			} catch (SQLException e) {
 				logger.error("ログイン処理中にエラーが発生しました。", e);
 				handleError(request, response, "loginError", "問題が発生しログインに失敗しました。再度お試しください。");
@@ -78,12 +79,13 @@ public class LoginServlet extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void handleError(HttpServletRequest request, HttpServletResponse response, String errorKey, String errorMessage)
-            throws ServletException, IOException {
-        // エラーメッセージをリクエストにセットする
-        request.setAttribute(errorKey, errorMessage);
-        // ログイン画面にフォワードする
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
-        dispatcher.forward(request, response);
-    }
+	private void handleError(HttpServletRequest request, HttpServletResponse response, String errorKey,
+			String errorMessage)
+			throws ServletException, IOException {
+		// エラーメッセージをリクエストにセットする
+		request.setAttribute(errorKey, errorMessage);
+		// ログイン画面にフォワードする
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/views/login.jsp");
+		dispatcher.forward(request, response);
+	}
 }
