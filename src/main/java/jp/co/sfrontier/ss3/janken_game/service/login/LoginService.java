@@ -1,4 +1,4 @@
-package jp.co.sfrontier.ss3.janken_game.servicelo.login;
+package jp.co.sfrontier.ss3.janken_game.service.login;
 
 import java.sql.Connection;
 import java.sql.SQLException;
