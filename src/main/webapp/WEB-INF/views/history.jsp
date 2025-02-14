@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
-<%@ page import="com.kadai.aws.model.ResultHistory" %>
+<%@ page import="jp.co.sfrontier.ss3.janken_game.model.ResultHistory" %>
 <% List<ResultHistory> resultHistory = (List<ResultHistory>)request.getAttribute("history"); %>
 
 <!DOCTYPE html>
