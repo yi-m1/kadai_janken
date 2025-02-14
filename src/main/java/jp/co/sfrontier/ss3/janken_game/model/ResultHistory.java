@@ -1,11 +1,9 @@
 package jp.co.sfrontier.ss3.janken_game.model;
 
-import java.util.Date;
-
 public class ResultHistory {
 
 	private String userName;
-	private Date executeDatetime;
+	private String executeDatetime;
 	private String opponent;
 	private String result;
 
@@ -13,7 +11,7 @@ public class ResultHistory {
 		return userName;
 	}
 
-	public Date getExecuteDatetime() {
+	public String getExecuteDatetime() {
 		return executeDatetime;
 	}
 
@@ -29,7 +27,7 @@ public class ResultHistory {
 		this.userName = userName;
 	}
 
-	public void setExecuteDatetime(Date executeDatetime) {
+	public void setExecuteDatetime(String executeDatetime) {
 		this.executeDatetime = executeDatetime;
 	}
 

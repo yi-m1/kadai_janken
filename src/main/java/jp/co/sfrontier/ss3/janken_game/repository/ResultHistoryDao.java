@@ -48,15 +48,15 @@ public class ResultHistoryDao {
 		// ステートメント作成
 		if (Optional.ofNullable(Integer.valueOf(userId)).isPresent()) {
 			if (userId == 2) {
-				sql = "SELECT ui1.user_name AS user_name, rh.execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id";
+				sql = "SELECT ui1.user_name AS user_name, TO_CHAR(rh.execute_datetime, 'YYYY/MM/DD HH24:MI:SS') AS execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id ORDER BY rh.execute_datetime DESC LIMIT 100";
 				pstmt = conn.prepareStatement(sql);
 			} else {
-				sql = "SELECT ui1.user_name AS user_name, rh.execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id WHERE user_id = ?";
+				sql = "SELECT ui1.user_name AS user_name, TO_CHAR(rh.execute_datetime, 'YYYY/MM/DD HH24:MI:SS') AS execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id WHERE user_id = ? ORDER BY rh.execute_datetime DESC LIMIT 100";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setInt(1, userId);
 			}
 		} else {
-			sql = "SELECT ui1.user_name AS user_name, rh.execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id";
+			sql = "SELECT ui1.user_name AS user_name, TO_CHAR(rh.execute_datetime, 'YYYY/MM/DD HH24:MI:SS') AS execute_datetime, ui2.user_name AS opponent_name, rh.result FROM result_history_tbl rh INNER JOIN user_information_tbl ui1 ON rh.user_id = ui1.user_id INNER JOIN user_information_tbl ui2 ON rh.opponent = ui2.user_id ORDER BY rh.execute_datetime DESC LIMIT 100";
 			pstmt = conn.prepareStatement(sql);
 		}
 
@@ -67,7 +67,7 @@ public class ResultHistoryDao {
 			// オブジェクトにデータを一時格納
 			ResultHistory resuhisInfo = new ResultHistory();
 			resuhisInfo.setUserName(rset.getString("user_name"));
-			resuhisInfo.setExecuteDatetime(rset.getDate("execute_datetime"));
+			resuhisInfo.setExecuteDatetime(rset.getString("execute_datetime"));
 			resuhisInfo.setOpponent(rset.getString("opponent_name"));
 			resuhisInfo.setResult(rset.getString("result"));
 			// 一時格納したデータをリストに追加
