@@ -79,8 +79,7 @@ public class LoginServlet extends HttpServlet {
 	 * @throws ServletException
 	 * @throws IOException
 	 */
-	private void handleError(HttpServletRequest request, HttpServletResponse response, String errorKey,
-			String errorMessage)
+	private void handleError(HttpServletRequest request, HttpServletResponse response, String errorKey, String errorMessage)
 			throws ServletException, IOException {
 		// エラーメッセージをリクエストにセットする
 		request.setAttribute(errorKey, errorMessage);
