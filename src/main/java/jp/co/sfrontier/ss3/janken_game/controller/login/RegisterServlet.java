@@ -17,8 +17,8 @@ import jp.co.sfrontier.ss3.janken_game.component.UserComponent;
 import jp.co.sfrontier.ss3.janken_game.component.UserComponent.UserCheckResult;
 import jp.co.sfrontier.ss3.janken_game.controller.util.ServletUtils;
 import jp.co.sfrontier.ss3.janken_game.model.UserInfo;
-import jp.co.sfrontier.ss3.janken_game.service.login.RegisterService;
-import jp.co.sfrontier.ss3.janken_game.service.login.ValidatorService;
+import jp.co.sfrontier.ss3.janken_game.servicelo.login.RegisterService;
+import jp.co.sfrontier.ss3.janken_game.servicelo.login.ValidatorService;
 
 /**
  * 新規ユーザー登録処理を行うコントローラークラス
@@ -38,7 +38,6 @@ public class RegisterServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
 		String mailAddress = request.getParameter("mailAddress");
 		String userName = request.getParameter("userName");
 
